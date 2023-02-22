@@ -1,8 +1,10 @@
 [package]
-name = "caspiler-rs"
-version = "0.1.0"
+name = "caspiler"
+version = "0.0.0" # when updating, also update 'html_root_url' in lib.rs
+authors = ["Jonas Pauli <jonaspauli089@gmail.com>"]
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
+description = "CasperLabs execution engine crates."
+readme = "README.md"
+license = "Apache-2.0"
 [dependencies]
+custom_macros = {path='./custom_macros'}
