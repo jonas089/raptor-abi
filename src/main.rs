@@ -15,7 +15,7 @@ impl fmt::Display for EntryPoints {
 
 fn main(){
     generate_main!("total_supply", "vec![]");
-    println!("{}", args);
+    println!("{}", newly_created_var);
     //let example: EntryPoints = EntryPoints{name:"total_supply".to_string(), args:"vec![]".to_string()};
     //println!("Example: {}", example);
 }

@@ -1,12 +1,13 @@
 use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, DeriveInput};
-
+use std::string;
 #[proc_macro]
 pub fn generate_main(input: TokenStream) -> TokenStream {
     let args = input.to_string();
     let tokens = quote! {
         let args = #args;
+        let newly_created_var:String = "hello".to_string();
         println!("Args: {}", #args);
     };
     tokens.into()
