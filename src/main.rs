@@ -1,6 +1,6 @@
 use std::string::ToString;
 use std::fmt;
-use casper::{EntryPoint, build_entry_point};
+use casper::{test_type_import};
 use custom_macros::MyMacro;
 
 #[derive(MyMacro)]

@@ -1,6 +1,11 @@
-use proc_macro2::TokenStream;
-use quote::{format_ident, quote, ToTokens, TokenStreamExt};
+use casper_types::{CLType};
 
+
+pub fn test_type_import(){
+	let x:CLType = CLType::Unit;
+}
+
+/*
 pub struct EntryPoint{
     pub ident:String,
     pub args:String,
@@ -22,3 +27,4 @@ pub fn build_entry_point(entrypoint: EntryPoint) -> TokenStream {
        // ...
    }
 }
+*/
