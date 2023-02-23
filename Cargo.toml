@@ -8,3 +8,4 @@ readme = "README.md"
 license = "Apache-2.0"
 [dependencies]
 custom_macros = {path='./custom_macros'}
+casper = {path='./casper'}

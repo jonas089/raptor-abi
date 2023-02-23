@@ -1,8 +1,8 @@
 use std::string::ToString;
 use std::fmt;
+use casper::{EntryPoint, build_entry_point};
 #[macro_use]
-extern crate custom_macros;
-
+use custom_macros::generate_ep;
 struct EntryPoints{
     name:String,
     args:String
@@ -15,8 +15,14 @@ impl fmt::Display for EntryPoints {
 
 fn main(){
     let example = EntryPoints{name:"jonas".to_string(), args:"test_args".to_string()};
-
-    println!("{}", new_variable);
+    let ep = EntryPoint{
+        ident: "test".to_string(),
+        args: "vec![]".to_string(),
+        ret: "Unit".to_string(),
+        ty: "Public".to_string()
+    };
+    generate_ep!(build_entry_point(ep));
+    println!("{}", res);
 }
 
 #[test]
