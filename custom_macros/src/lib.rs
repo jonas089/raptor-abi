@@ -1,6 +1,6 @@
 use proc_macro::TokenStream;
 use quote::quote;
-use syn::{parse_macro_input, DeriveInput};
+use syn::{parse_macro_input, DeriveInput, Data, Fields, Expr, Lit, parse_quote};
 use std::string;
 #[proc_macro]
 pub fn generate_main(input: TokenStream) -> TokenStream {
@@ -13,46 +13,34 @@ pub fn generate_main(input: TokenStream) -> TokenStream {
     tokens.into()
 }
 
-/*
-#[proc_macro_derive(Entries)]
-pub fn my_derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
-    /*
-    let ast: DeriveInput = syn::parse(input).unwrap();
-    let name = &ast.ident;
-    let fields = match ast.data {
-        syn::Data::Struct(ref data) => match &data.fields {
-            syn::Fields::Named(fields) => fields.named.iter(),
-            _ => unimplemented!(),
-        },
-        _ => unimplemented!(),
+#[proc_macro]
+pub fn my_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    // Parse the input tokens into a syntax tree
+    let input = parse_macro_input!(input as DeriveInput);
+
+
+    let mut metadata: Vec<Vec<String>> = Vec::new();
+    // Check if the input is a struct
+    if let Data::Struct(data) = input.data {
+        // Iterate over the fields of the struct
+        if let Fields::Named(fields) = data.fields {
+            for field in fields.named {
+                // Get the name and type of the field
+                let name = field.ident.unwrap();
+                let ty = field.ty;
+                let d = field.attrs;
+                println!("{}", quote!(d).to_string());
+                let ty_str = quote!(ty).to_string();
+                // Do something with the name and type of the field
+                let key = Vec::from([name.to_string(), ty_str]);
+                metadata.push(key);
+            }
+        }
+    }
+    println!("{:?}", metadata);
+    let _stream = quote! {
+        let new_variable:String = "test".to_string();
     };
-    let field_replacements = fields.map(|field| {
-        let name = field.ident.as_ref().unwrap();
-        let ty = &field.ty;
-        quote! { stringify!(#name): format!("{:?}", #name), }
-    }).collect::<Vec<_>>();
-    */
-
-    let ast: DeriveInput = syn::parse(input).unwrap();
-
-    let fields = match ast.data {
-        syn::Data::Struct(ref data) => match &data.fields {
-            syn::Fields::Named(fields) => fields.named.iter(),
-            _ => unimplemented!(),
-        },
-        _ => unimplemented!(),
-    };
-
-    let name_field = fields.clone().find(|f| f.ident.as_ref().unwrap() == "name").unwrap();
-    let args_field = fields.clone().find(|f| f.ident.as_ref().unwrap() == "args").unwrap();
-
-    let name = quote! { #name_field }.to_string();
-    let args = quote! { #args_field }.to_string();
-
-    let gen = quote! {
-        let name = #name;
-        let args = #args;
-    };
-    gen.into()
+    // Return a dummy output
+    _stream.into()
 }
-*/
