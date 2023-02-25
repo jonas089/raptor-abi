@@ -1,8 +1,25 @@
 use casper_types::{CLType};
+use custom_macros::MyMacro;
+use std::fmt;
+use std::string::ToString;
 
+#[derive(MyMacro)]
+pub struct EntryPoints{
+    pub name:String,
+	pub args:String
+}
+impl fmt::Display for EntryPoints {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Name: {} Args:{}", self.name, self.args)
+    }
+}
 
 pub fn test_type_import(){
 	let x:CLType = CLType::Unit;
+}
+
+pub fn build_entry_point(){
+
 }
 
 /*

@@ -1,6 +1,6 @@
 //use proc_macro::TokenStream;
 //use quote::quote;
-use syn::{parse_macro_input, DeriveInput, Data, Fields, Expr, Lit, parse_quote};
+use syn::{parse_macro_input, DeriveInput, Data, Fields, Expr, Lit, parse_quote, DataStruct};
 use std::{self, string};
 use proc_macro::TokenStream;
 use quote::{format_ident, quote, ToTokens, TokenStreamExt};
@@ -20,11 +20,24 @@ pub fn generate_ep(input: TokenStream) -> TokenStream{
 pub fn my_macro_derive(input: TokenStream) -> TokenStream {
     // Parse the input tokens into a syntax tree
     let input = parse_macro_input!(input as DeriveInput);
+    println!("AST input: {:?}", input);
+    let data = match &input.data{
+        syn::Data::Struct(data_struct) => {
+            println!("Data struct fields: {:?}", data_struct.fields);
+            data_struct
+        },
+        _ => {
+            panic!("Input is not of type struct!");
+        }
+    };
+    let fields = &data.fields;
+    println!("Data {:?}", &data);
 
     // Generate code to implement the MyTrait trait
     let trait_impl = quote! {
-
-        fn my_trait_function(&self) -> String {
+        pub fn my_trait_function(&self) -> String {
+            //let name = #access_name;
+            println!("Value: {}", self.name);
             "This code was generated at compile time!".to_string()
             // Implementation goes here
         }
