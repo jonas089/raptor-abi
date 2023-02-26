@@ -6,7 +6,7 @@ use casper_types::{
     contracts::NamedKeys, runtime_args, CLType, CLValue, EntryPoint, EntryPointAccess, EntryPointType, EntryPoints, Key, Parameter, RuntimeArgs
 };
 
-pub fn test_ep_integration() -> String{
+pub fn test_ep_integration() -> u64{
     let example: EntryPoint2 = EntryPoint2{
         name:"total_supply".to_string(),
         args:vec![Parameter::new("string parameter", CLType::String), Parameter::new("integer parameter", CLType::U512)],
@@ -23,10 +23,10 @@ pub fn test_ep_integration() -> String{
 
     match ep {
         EntryPoint => {
-            "Success! [Entry Point].".to_string()
+            0 as u64
         },
         _ => {
-            panic!("ERROR! Type mismatch, not an EP!.")
+            1 as u64
         }
     }
 }
