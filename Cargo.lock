@@ -64,17 +64,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "14c189c53d098945499cdfa7ecc63567cf3886b3332b312a5b4585d8d3a6a610"
 
 [[package]]
-name = "casper"
-version = "0.1.0"
-dependencies = [
- "casper-types",
- "code_generator",
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
 name = "casper-types"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -104,9 +93,21 @@ dependencies = [
 name = "caspiler"
 version = "0.0.0"
 dependencies = [
- "casper",
  "casper-types",
+ "caspiler_lib",
+ "helpers",
  "serde",
+]
+
+[[package]]
+name = "caspiler_lib"
+version = "0.1.0"
+dependencies = [
+ "casper-types",
+ "code_generator",
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -269,6 +270,13 @@ dependencies = [
  "ff",
  "rand_core 0.5.1",
  "subtle",
+]
+
+[[package]]
+name = "helpers"
+version = "0.1.0"
+dependencies = [
+ "serde_json",
 ]
 
 [[package]]

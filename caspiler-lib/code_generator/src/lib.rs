@@ -5,6 +5,10 @@ use quote::{quote, ToTokens};
 
 use std::{string};
 
+struct Metadata{
+    name:String,
+}
+
 #[proc_macro_derive(EpMacro)]
 pub fn ep_derive(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
@@ -18,6 +22,9 @@ pub fn ep_derive(input: TokenStream) -> TokenStream {
     };
     let fields = &data.fields;
     let trait_impl = quote! {
+        pub fn meta_data(&self) -> String{
+            self.name.clone().to_string()
+        }
         pub fn forge(&self) -> EntryPoint{
             EntryPoint::new(self.name.clone(), self.args.clone(), self.ret.clone(), self.access.clone(), self.tp.clone())
             // TBD: dump EP as json

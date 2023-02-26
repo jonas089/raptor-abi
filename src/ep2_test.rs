@@ -1,10 +1,11 @@
 #![no_std]
 extern crate alloc;
 use alloc::{vec, string::{String, ToString}};
-use casper::{EntryPoint2};
+use caspiler_lib::{EntryPoint2};
 use casper_types::{
     contracts::NamedKeys, runtime_args, CLType, CLValue, EntryPoint, EntryPointAccess, EntryPointType, EntryPoints, Key, Parameter, RuntimeArgs
 };
+use helpers::meta;
 
 pub fn test_ep_integration_EP2() -> u64{
     let example: EntryPoint2 = EntryPoint2{
@@ -21,6 +22,8 @@ pub fn test_ep_integration_EP2() -> u64{
     eps.add_entry_point(ep);
     */
 
+    // issue: this would also be called on-chain...
+    meta::dump_json(example.meta_data());
     match ep {
         EntryPoint => {
             0 as u64
