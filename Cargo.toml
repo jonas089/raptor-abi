@@ -7,5 +7,6 @@ description = "CasperLabs execution engine crates."
 readme = "README.md"
 license = "Apache-2.0"
 [dependencies]
-casper = {path='./casper'}
+casper = {path='./caspiler-lib'}
 casper-types="1.4.5"
+serde = { version = "1", features = ["alloc"], default-features = false }
