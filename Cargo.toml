@@ -8,3 +8,4 @@ readme = "README.md"
 license = "Apache-2.0"
 [dependencies]
 casper = {path='./casper'}
+casper-types="1.4.5"

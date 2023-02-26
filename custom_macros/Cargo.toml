@@ -10,5 +10,6 @@ syn="1.0.107"
 quote="1.0.23"
 proc-macro2="1.0.51"
 libloading="0.7.4"
+casper-types="1.4.5"
 [lib]
 proc-macro=true

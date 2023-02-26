@@ -1,47 +1,18 @@
-use casper_types::{CLType};
-use custom_macros::MyMacro;
+use casper_types::{Parameter, CLType, EntryPointAccess, EntryPointType, EntryPoint};
+use custom_macros::EpMacro;
 use std::fmt;
 use std::string::ToString;
 
-#[derive(MyMacro)]
-pub struct EntryPoints{
-    pub name:String,
-	pub args:String
+#[derive(EpMacro)]
+pub struct EntryPoint2{
+    pub name: String,
+	pub args: Vec<Parameter>,
+    pub ret: CLType,
+    pub access: EntryPointAccess,
+    pub tp: EntryPointType
 }
-impl fmt::Display for EntryPoints {
+impl fmt::Display for EntryPoint2 {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Name: {} Args:{}", self.name, self.args)
+        write!(f, "Name: {} Args:{:?} Ret:{:?} Access:{:?} Type:{:?}", self.name, self.args, self.ret, self.access, self.tp)
     }
 }
-
-pub fn test_type_import(){
-	let x:CLType = CLType::Unit;
-}
-
-pub fn build_entry_point(){
-
-}
-
-/*
-pub struct EntryPoint{
-    pub ident:String,
-    pub args:String,
-    pub ret:String,
-    pub ty:String
-}
-
-pub fn build_entry_point(entrypoint: EntryPoint) -> TokenStream {
-   let entrypoint_ident = &entrypoint.ident;
-   let params = &entrypoint.args;
-   let ret = &entrypoint.ret;
-   let access = &entrypoint.ty;
-   quote! {
-       // declare a new variable
-       let test_var = "hello".to_string();
-
-       let params: Vec::from([#entrypoint_ident, #params, #ret, #access])
-       // construct the entry point
-       // ...
-   }
-}
-*/

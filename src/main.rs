@@ -1,23 +1,31 @@
 use std::string::ToString;
-use casper::EntryPoints;
+use casper::{EntryPoint2};
+use casper_types::{
+    contracts::NamedKeys, runtime_args, CLType, CLValue, EntryPoint, EntryPointAccess, EntryPointType, EntryPoints, Key, Parameter, RuntimeArgs
+};
 
 fn main(){
-    let example: EntryPoints = EntryPoints{name:"total_supply".to_string(), args:"some_args".to_string()};
-    // what it will look like
+    let example: EntryPoint2 = EntryPoint2{
+        name:"total_supply".to_string(),
+        args:vec![Parameter::new("string parameter", CLType::String), Parameter::new("integer parameter", CLType::U512)],
+        ret:CLType::Unit,
+        access:EntryPointAccess::Public,
+        tp:EntryPointType::Contract
+    };
+    let ep: EntryPoint = example.forge();
 
     /*
-        let example: EntryPoint = EntryPoint(...);
-        example.into => macro impl that creates a new EntryPoint form the struct and returns it as a TokenStream
-        EntryPoints::add_entry_point(example.into())
-
-        note that EntryPoint class is occupied, so maybe choose something else or not import it from casper_types
-
+    let eps: EntryPoints = EntryPoints::new();
+    eps.add_entry_point(ep);
     */
-    let res = example.my_trait_function();
-    println!("Res: {}", res);
+
+    match ep {
+        EntryPoint => {println!("YAY! Construction of Entry Point was successful.")},
+        _ => {panic!("ERROR! Type mismatch, not an EP!.")}
+    }
 }
 
 #[test]
 fn test_ep(){
-
+    panic!("No tests implemented");
 }

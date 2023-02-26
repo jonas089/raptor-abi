@@ -1,29 +1,16 @@
-//use proc_macro::TokenStream;
-//use quote::quote;
-use syn::{parse_macro_input, DeriveInput, Data, Fields, Expr, Lit, parse_quote, DataStruct};
-use std::{self, string};
+use syn::{parse_macro_input, DeriveInput, Data};
 use proc_macro::TokenStream;
-use quote::{format_ident, quote, ToTokens, TokenStreamExt};
-/*
-#[proc_macro]
-pub fn generate_ep(input: TokenStream) -> TokenStream{
-    let args = input.to_string();
-    let tokens = quote! {
-        let res = #args;
-        let newly_created_var:String = "hello".to_string();
-        println!("Args: {}", #args);
-    };
-    tokens.into()
-}
-*/
-#[proc_macro_derive(MyMacro)]
-pub fn my_macro_derive(input: TokenStream) -> TokenStream {
-    // Parse the input tokens into a syntax tree
+
+use std::{string};
+
+use casper_types::{EntryPoint};
+use quote::{quote, ToTokens};
+
+#[proc_macro_derive(EpMacro)]
+pub fn ep_derive(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
-    println!("AST input: {:?}", input);
     let data = match &input.data{
-        syn::Data::Struct(data_struct) => {
-            println!("Data struct fields: {:?}", data_struct.fields);
+        Data::Struct(data_struct) => {
             data_struct
         },
         _ => {
@@ -31,31 +18,17 @@ pub fn my_macro_derive(input: TokenStream) -> TokenStream {
         }
     };
     let fields = &data.fields;
-    println!("Data {:?}", &data);
-
-    // Generate code to implement the MyTrait trait
     let trait_impl = quote! {
-        pub fn my_trait_function(&self) -> String {
-            //let name = #access_name;
-            println!("Value: {}", self.name);
-            "This code was generated at compile time!".to_string()
-            // Implementation goes here
+        pub fn forge(&self) -> EntryPoint{
+            EntryPoint::new(self.name.clone(), self.args.clone(), self.ret.clone(), self.access.clone(), self.tp.clone())
         }
-
-
     };
-
-    // Get the name of the struct
     let struct_name = &input.ident;
 
-    // Generate code to add the trait implementation to the struct
     let output = quote! {
-        // Add the trait implementation to the struct
         impl #struct_name {
             #trait_impl
         }
     };
-
-    // Return the generated code as a TokenStream
     output.into()
 }
