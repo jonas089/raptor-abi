@@ -1,5 +1,5 @@
 use casper_types::{Parameter, CLType, EntryPointAccess, EntryPointType, EntryPoint};
-use custom_macros::EpMacro;
+use code_generator::EpMacro;
 use std::fmt;
 use std::string::ToString;
 
