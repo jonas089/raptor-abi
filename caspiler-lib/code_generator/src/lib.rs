@@ -1,10 +1,9 @@
 use syn::{parse_macro_input, DeriveInput, Data};
 use proc_macro::TokenStream;
-
-use std::{string};
-
 use casper_types::{EntryPoint};
 use quote::{quote, ToTokens};
+
+use std::{string};
 
 #[proc_macro_derive(EpMacro)]
 pub fn ep_derive(input: TokenStream) -> TokenStream {
@@ -21,6 +20,9 @@ pub fn ep_derive(input: TokenStream) -> TokenStream {
     let trait_impl = quote! {
         pub fn forge(&self) -> EntryPoint{
             EntryPoint::new(self.name.clone(), self.args.clone(), self.ret.clone(), self.access.clone(), self.tp.clone())
+            // TBD: dump EP as json
+            // .. then, combine json and .wasm
+            // => write a script that compiles to wasm and then combines .wasm and .json into .contract
         }
     };
     let struct_name = &input.ident;
