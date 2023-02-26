@@ -1,7 +1,7 @@
 mod example_contract;
-use example_contract::test_ep_integration;
+use example_contract::test_ep_integration_EP2;
 fn main(){
-    let res: u64 = test_ep_integration();
+    let res: u64 = test_ep_integration_EP2();
     match res {
         0 => {
             println!("Success! [Entry Point] type match.");

@@ -3,6 +3,9 @@ use code_generator::EpMacro;
 use std::fmt;
 use std::string::ToString;
 
+// Note:
+// Temporary use of a new struct EntryPoint2.
+// This might be reverted, if the macro can be used on EntryPoint(1) as expected.
 #[derive(EpMacro)]
 pub struct EntryPoint2{
     pub name: String,
