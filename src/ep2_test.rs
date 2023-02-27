@@ -2,7 +2,6 @@
 extern crate alloc;
 use alloc::{vec, string::{String, ToString}};
 use caspiler_lib::{EntryPoint2};
-use code_generator::FCmp;
 use casper_types::{
     contracts::NamedKeys, runtime_args, CLType, CLValue, EntryPoint, EntryPointAccess, EntryPointType, EntryPoints, Key, Parameter, RuntimeArgs
 };
