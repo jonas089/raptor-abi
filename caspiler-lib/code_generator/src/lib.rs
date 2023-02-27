@@ -37,20 +37,3 @@ pub fn ep_derive(input: TokenStream) -> TokenStream {
     };
     output.into()
 }
-
-// use this macro for code that is supposed to run only at compiletime.
-#[proc_macro_derive(Cmp)]
-pub fn compile_derive(input: TokenStream) -> TokenStream{
-
-    TokenStream::new()
-}
-
-#[proc_macro_derive(FCmp)]
-pub fn compile_fn_derive(input: TokenStream) -> TokenStream {
-    let input = parse_macro_input!(input as DeriveInput);
-    let name = &input.ident;
-    let output = quote! {
-        fn #name() {}
-    };
-    output.into()
-}

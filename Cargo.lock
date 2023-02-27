@@ -277,6 +277,7 @@ dependencies = [
 name = "helpers"
 version = "0.1.0"
 dependencies = [
+ "code_generator",
  "serde_json",
 ]
 

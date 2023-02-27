@@ -24,6 +24,7 @@ pub fn test_ep_integration_EP2() -> u64{
     */
 
     // issue: this would also be called on-chain...
+    // need to find a way to call this only once, at compile-time
     meta::dump_json(example.meta_data());
     match ep {
         EntryPoint => {
