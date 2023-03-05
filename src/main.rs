@@ -1,7 +1,9 @@
-mod ep2_test;
-use ep2_test::test_ep_integration_EP2;
-
+//mod ep2_test;
+mod ink;
+//use ep2_test::test_ep_integration_EP2;
+use ink::ink_casper_contract;
 fn main(){
+    /*
     let res: u64 = test_ep_integration_EP2();
     match res {
         0 => {
@@ -14,4 +16,6 @@ fn main(){
             panic!("Error! Unknown.");
         }
     }
+    */
+    let res:u64 = ink_casper_contract();
 }

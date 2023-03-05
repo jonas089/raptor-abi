@@ -18,3 +18,17 @@ impl fmt::Display for EntryPoint2 {
         write!(f, "Name: {} Args:{:?} Ret:{:?} Access:{:?} Type:{:?}", self.name, self.args, self.ret, self.access, self.tp)
     }
 }
+
+/*
+Function:
+What could be achieved with functional macro?
+Function takes args (String, Vec, CLType, ...)
+Need to find a way to extract these args
+
+Struct:
+Instance of struct -> attribute:vale, attribute:value...
+Need to find a wat to extract values by paired attribute.
+
+- can extract access them through an impl that is added at compiletime,
+but that's the wrong scope.
+*/
