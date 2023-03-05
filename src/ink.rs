@@ -2,32 +2,12 @@
 extern crate alloc;
 use alloc::{vec, string::{String, ToString}};
 
+use helpers::types::{CasperKey, CasperU64, CasperU512, CasperString};
 use code_generator::{InkCasperMacro};
 use casper_types::{
     contracts::NamedKeys, runtime_args, CLType, CLValue, EntryPoint, EntryPointAccess, EntryPointType, EntryPoints, Key, Parameter, RuntimeArgs
 };
 extern crate serde_json;
-
-#[derive(Default)]
-struct CasperKey{
-    id:u64
-}
-
-#[derive(Default)]
-struct CasperU512{
-    id:u64
-}
-
-#[derive(Default)]
-struct CasperU64{
-    id:u64
-}
-
-#[derive(Default)]
-struct CasperString{
-    id:String
-}
-
 
 pub fn ink_casper_contract() -> u64{
     #[derive(Default)]
