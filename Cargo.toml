@@ -7,8 +7,8 @@ description = "CasperLabs execution engine crates."
 readme = "README.md"
 license = "Apache-2.0"
 [dependencies]
-caspiler_lib = {path='./caspiler-lib'}
 helpers = {path='./helpers'}
 casper-types="1.4.5"
-code_generator = {path='./caspiler-lib/code_generator'}
+code_generator = {path='./code_generator'}
 serde = { version = "1", features = ["alloc"], default-features = false }
+serde_json="1.0.93"

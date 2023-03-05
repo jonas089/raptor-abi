@@ -94,21 +94,10 @@ name = "caspiler"
 version = "0.0.0"
 dependencies = [
  "casper-types",
- "caspiler_lib",
  "code_generator",
  "helpers",
  "serde",
-]
-
-[[package]]
-name = "caspiler_lib"
-version = "0.1.0"
-dependencies = [
- "casper-types",
- "code_generator",
- "proc-macro2",
- "quote",
- "syn",
+ "serde_json",
 ]
 
 [[package]]
@@ -125,6 +114,7 @@ dependencies = [
  "libloading",
  "proc-macro2",
  "quote",
+ "serde_json",
  "syn",
 ]
 
