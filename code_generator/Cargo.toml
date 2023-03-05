@@ -1,12 +1,16 @@
 [package]
-name = "caspiler_lib"
+name = "code_generator"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
 [dependencies]
-syn="1.0.107"
+syn="1.0.109"
 quote="1.0.23"
 proc-macro2="1.0.51"
+libloading="0.7.4"
 casper-types="1.4.5"
-code_generator={path='./code_generator'}
+serde_json="1.0.93"
+[lib]
+proc-macro=true
