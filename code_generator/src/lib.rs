@@ -10,7 +10,7 @@ use std::{string};
 extern crate serde_json;
 use helpers::meta::dump_json;
 
-// solution
+// proc macro for Entry Point ABI generation.
 #[proc_macro_derive(InkCasperMacro)]
 pub fn ink_derive(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
@@ -28,7 +28,6 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
     attributes.push(vec!["Name".to_string(), struct_name.to_string()]);
     for attribute in fields.iter(){
         let a = vec![attribute.ident.to_token_stream().to_string(), attribute.ty.to_token_stream().to_string()];
-        println!("Found Attribute: {:?}", attribute.ty.to_token_stream().to_string());
         attributes.push(a);
     }
 
@@ -42,7 +41,6 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
     let trait_impl = quote! {
         pub fn get_params(&self) -> Vec<Parameter>{
             let mut params: Vec<Parameter> = Vec::new();
-            //let attributes = vec![#(#attributes),*];
             let NAMES = vec![#(#NAMES),*];
             let TYPES = vec![#(#TYPES),*];
             for i in 0..NAMES.len(){
