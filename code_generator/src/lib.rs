@@ -8,6 +8,7 @@ use casper_types::{
 use quote::{quote, ToTokens, TokenStreamExt, quote_spanned};
 use std::{string};
 extern crate serde_json;
+use helpers::meta::dump_json;
 
 // solution
 #[proc_macro_derive(InkCasperMacro)]
@@ -25,22 +26,19 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
     let struct_name = &input.ident;
     let mut attributes: Vec<Vec<String>> = Vec::new();
     attributes.push(vec!["Name".to_string(), struct_name.to_string()]);
-    //let name_ident = fields.iter().find(|f| f.ident.as_ref().unwrap().to_string() == "args").unwrap();
     for attribute in fields.iter(){
-        println!("IDENTIFIER: {:?}", attribute.ident);
         let a = vec![attribute.ident.to_token_stream().to_string(), attribute.ty.to_token_stream().to_string()];
         println!("Found Attribute: {:?}", attribute.ty.to_token_stream().to_string());
         attributes.push(a);
     }
-    println!("Attributes for this Entry Point: {:?}", attributes);
+
     let mut NAMES:Vec<String> = Vec::new();
     let mut TYPES:Vec<String> = Vec::new();
-
     for attribute in attributes.iter(){
         NAMES.push(attribute[0].clone());
         TYPES.push(attribute[1].clone());
     }
-    println!("NAMES:{:?} TYPES:{:?}", NAMES, TYPES);
+    dump_json(serde_json::to_string(&attributes).unwrap());
     let trait_impl = quote! {
         pub fn get_params(&self) -> Vec<Parameter>{
             let mut params: Vec<Parameter> = Vec::new();
@@ -66,7 +64,6 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
             params
         }
     };
-    println!("Struct Name:{:?}", struct_name);
     let output = quote! {
         impl #struct_name {
             #trait_impl

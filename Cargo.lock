@@ -111,6 +111,7 @@ name = "code_generator"
 version = "0.1.0"
 dependencies = [
  "casper-types",
+ "helpers",
  "libloading",
  "proc-macro2",
  "quote",
@@ -267,7 +268,6 @@ dependencies = [
 name = "helpers"
 version = "0.1.0"
 dependencies = [
- "code_generator",
  "serde_json",
 ]
 
