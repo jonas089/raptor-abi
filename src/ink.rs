@@ -35,6 +35,10 @@ pub fn ink_casper_contract() -> u64{
     let result = ep.get_params();
     let result2 = ep2.get_params();
 
+    let mut eps = EntryPoints::new();
+    let entry_point = EntryPoint::new("test", result.clone(), CLType::Unit, EntryPointAccess::Public, EntryPointType::Contract);
+    eps.add_entry_point(entry_point);
+
     println!("Parameters of Entry Point #1: {:?}", result);
     for _ep in result.iter(){
         match _ep{
