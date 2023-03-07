@@ -13,9 +13,6 @@ pub fn load_json() -> std::io::Result<Vec<Vec<String>>> {
 pub fn create_json_file(path: &str) -> bool {
     if let Ok(metadata) = fs::metadata(path) {
         let res = metadata.is_file();
-        if res == false{
-            fs::File::create(path);
-        }
         metadata.is_file()
     } else {
         fs::File::create(path);
