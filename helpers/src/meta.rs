@@ -18,6 +18,7 @@ pub fn create_json_file(path: &str) -> bool {
         }
         metadata.is_file()
     } else {
+        fs::File::create(path);
         false
     }
 }
