@@ -31,21 +31,16 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
         attributes.push(a);
     }
 
-    let mut NAMES:Vec<String> = Vec::new();
-    let mut TYPES:Vec<String> = Vec::new();
+    let mut names:Vec<String> = Vec::new();
+    let mut types:Vec<String> = Vec::new();
     for attribute in attributes.iter(){
-        NAMES.push(attribute[0].clone());
-        TYPES.push(attribute[1].clone());
+        names.push(attribute[0].clone());
+        types.push(attribute[1].clone());
     }
-    let _meta = load_json();
-    match _meta{
-        Ok(m) => {
-            let mut _m = m.clone();
-            for a in attributes.clone().iter(){
-                println!("attribute to be pushed: {:?}", a);
-                _m.push((*a.clone()).to_vec());
-            }
-            dump_json(&_m);
+    match load_json() {
+        Ok(mut meta) => {
+            meta.extend(attributes);
+            dump_json(&meta);
         },
         Err(_) => {
             dump_json(&attributes);
@@ -54,24 +49,20 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
     let trait_impl = quote! {
         pub fn get_params(&self) -> Vec<Parameter>{
             let mut params: Vec<Parameter> = Vec::new();
-            let NAMES = vec![#(#NAMES),*];
-            let TYPES = vec![#(#TYPES),*];
-            for i in 0..NAMES.len(){
-                if NAMES[i] != "Name"{
-                    if TYPES[i] == "CasperString"{
-                        params.push(Parameter::new(NAMES[i], CLType::String));
-                    }
-                    else if TYPES[i] == "CasperU64"{
-                        params.push(Parameter::new(NAMES[i], CLType::U64));
-                    }
-                    else if TYPES[i] == "CasperKey"{
-                        params.push(Parameter::new(NAMES[i], CLType::Key));
-                    }
-                    else if TYPES[i] == "CasperU512"{
-                        params.push(Parameter::new(NAMES[i], CLType::U512));
-                    }
-                }
+            let names = vec![#(#names),*];
+            let types = vec![#(#types),*];
+            let mut params = Vec::new();
+            for (name, ty) in names.iter().zip(types.iter()).skip(1) {
+                let param = match *ty {
+                    "CasperString" => Parameter::new(name.clone(), CLType::String),
+                    "CasperU64" => Parameter::new(name.clone(), CLType::U64),
+                    "CasperKey" => Parameter::new(name.clone(), CLType::Key),
+                    "CasperU512" => Parameter::new(name.clone(), CLType::U512),
+                    _ => panic!("Unsupported type: {}", ty),
+                };
+                params.push(param);
             }
+            println!("PARAMETERS: {:?}", params);
             params
         }
     };
