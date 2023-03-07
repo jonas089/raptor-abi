@@ -20,8 +20,20 @@ pub fn ink_casper_contract() -> u64{
         key:CasperKey
     }
 
+    #[derive(Default)]
+    #[derive(InkCasperMacro)]
+    struct NewEntryPointArgs2{
+        sender:CasperString,
+        recipient:CasperString,
+        amount:CasperU64,
+        id_first:CasperU64,
+        key:CasperKey
+    }
+
     let ep = NewEntryPointArgs1::default();
+    let ep2 = NewEntryPointArgs2::default();
     let result = ep.get_params();
+    let result2 = ep2.get_params();
 
     println!("Parameters of Entry Point #1: {:?}", result);
     for _ep in result.iter(){

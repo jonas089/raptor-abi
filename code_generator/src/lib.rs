@@ -8,7 +8,7 @@ use casper_types::{
 use quote::{quote, ToTokens, TokenStreamExt, quote_spanned};
 use std::{string};
 extern crate serde_json;
-use helpers::meta::dump_json;
+use helpers::meta::{dump_json, load_json, create_json_file};
 
 // proc macro for Entry Point ABI generation.
 #[proc_macro_derive(InkCasperMacro)]
@@ -37,7 +37,20 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
         NAMES.push(attribute[0].clone());
         TYPES.push(attribute[1].clone());
     }
-    dump_json(serde_json::to_string(&attributes).unwrap());
+    let _meta = load_json();
+    match _meta{
+        Ok(m) => {
+            let mut _m = m.clone();
+            for a in attributes.clone().iter(){
+                println!("attribute to be pushed: {:?}", a);
+                _m.push((*a.clone()).to_vec());
+            }
+            dump_json(&_m);
+        },
+        Err(_) => {
+            dump_json(&attributes);
+        }
+    }
     let trait_impl = quote! {
         pub fn get_params(&self) -> Vec<Parameter>{
             let mut params: Vec<Parameter> = Vec::new();
