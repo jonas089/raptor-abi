@@ -1,5 +1,5 @@
-#![warn(unused_variables)]
-#![warn(dead_code)]
+#![allow(dead_code)]
+#[allow(unreachable_patterns)]
 mod ink;
 use ink::ink_casper_contract;
 fn main(){

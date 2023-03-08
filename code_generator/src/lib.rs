@@ -32,14 +32,14 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
         names.push(attribute[0].clone());
         types.push(attribute[1].clone());
     }
-    println!("File exists: {} \n", file_exists("output.json"));
+
     if file_exists("output.json") == false{
         match create_json_file("output.json"){
-            Ok(file) => {
-                println!("New File created. \n");
+            Ok(_file) => {
+
                 match dump_json(&attributes){
                     Ok(_r) => {
-                        println!("Success => dumped json. \n");
+
                     },
                     Err(_) => {
                         panic!("Failed to dump json.");
@@ -53,11 +53,11 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
     }
     else{
         match load_json(){
-            Ok(contents) => {
+            Ok(_contents) => {
                 //contents.extend(attributes.clone());
                 match dump_json(&attributes){
                     Ok(_r) => {
-                        println!("Success => dumped json \n");
+
                     },
                     Err(_) => {
                         panic!("Failed to dump json!");
@@ -86,7 +86,6 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
                 };
                 params.push(param);
             }
-            println!("PARAMETERS: {:?}", params);
             params
         }
     };

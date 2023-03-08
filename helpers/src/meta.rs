@@ -9,7 +9,6 @@ pub fn dump_json(data: &Vec<Vec<String>>) -> std::io::Result<()> {
         .append(true)
         .open("output.json")?;
     let res = file.write_all(json_data.as_bytes())?;
-    file.flush();
     Ok(res)
 }
 
@@ -18,7 +17,6 @@ pub fn load_json() -> std::io::Result<Vec<Vec<String>>> {
     let mut contents = String::new();
     file.read_to_string(&mut contents)?;
     let data: Vec<Vec<String>> = serde_json::from_str(&contents)?;
-    file.flush();
     Ok(data)
 }
 
