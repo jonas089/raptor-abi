@@ -8,6 +8,7 @@ use helpers::meta::{dump_json, load_json, create_json_file, file_exists};
 // proc macro for Entry Point ABI generation.
 #[proc_macro_derive(InkCasperMacro)]
 pub fn ink_derive(input: TokenStream) -> TokenStream {
+    // Parse deadcode struct as TokenStream
     let input = parse_macro_input!(input as DeriveInput);
     let data = match &input.data{
         Data::Struct(data_struct) => {
@@ -19,20 +20,21 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
     };
     let fields = &data.fields;
     let struct_name = &input.ident;
+    // Collect Type information from deadcode struct
     let mut attributes: Vec<Vec<String>> = Vec::new();
     attributes.push(vec!["Name".to_string(), struct_name.to_string()]);
     for attribute in fields.iter(){
         let a = vec![attribute.ident.to_token_stream().to_string(), attribute.ty.to_token_stream().to_string()];
         attributes.push(a);
     }
-
+    // Split struct into name and type vector for easier use in quote! block
     let mut names:Vec<String> = Vec::new();
     let mut types:Vec<String> = Vec::new();
     for attribute in attributes.iter(){
         names.push(attribute[0].clone());
         types.push(attribute[1].clone());
     }
-
+    // dump metadata at build time
     if file_exists("output.json") == false{
         match create_json_file("output.json"){
             Ok(_file) => {
@@ -68,8 +70,8 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
                 panic!("Failed to load json!");
             }
         }
-
     }
+    // add a trait to the deadcode struct that returns native Parameters for EPs
     let trait_impl = quote! {
         pub fn get_params(&self) -> Vec<Parameter>{
             let mut params: Vec<Parameter> = Vec::new();
