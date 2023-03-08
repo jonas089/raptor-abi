@@ -15,5 +15,5 @@ pub struct CasperU64{
 
 #[derive(Default)]
 pub struct CasperString{
-    id:String
+    id:u64
 }

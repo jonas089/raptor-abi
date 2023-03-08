@@ -1,14 +1,9 @@
 use std::vec::Vec;
-use syn::{parse_macro_input, DeriveInput, Data, Ident};
+use syn::{parse_macro_input, DeriveInput, Data};
 use proc_macro::{TokenStream};
-use proc_macro2::{TokenTree};
-use casper_types::{
-    CLType::U512, contracts::NamedKeys, runtime_args, CLType, CLValue, EntryPoint, EntryPointAccess, EntryPointType, EntryPoints, Key, Parameter, RuntimeArgs
-};
-use quote::{quote, ToTokens, TokenStreamExt, quote_spanned};
-use std::{string};
+use quote::{quote, ToTokens};
 extern crate serde_json;
-use helpers::meta::{dump_json, load_json, create_json_file};
+use helpers::meta::{dump_json, load_json, create_json_file, file_exists};
 
 // proc macro for Entry Point ABI generation.
 #[proc_macro_derive(InkCasperMacro)]
@@ -37,14 +32,43 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
         names.push(attribute[0].clone());
         types.push(attribute[1].clone());
     }
-    match load_json() {
-        Ok(mut meta) => {
-            meta.extend(attributes);
-            dump_json(&meta);
-        },
-        Err(_) => {
-            dump_json(&attributes);
+    println!("File exists: {} \n", file_exists("output.json"));
+    if file_exists("output.json") == false{
+        match create_json_file("output.json"){
+            Ok(file) => {
+                println!("New File created. \n");
+                match dump_json(&attributes){
+                    Ok(_r) => {
+                        println!("Success => dumped json. \n");
+                    },
+                    Err(_) => {
+                        panic!("Failed to dump json.");
+                    }
+                }
+            },
+            Err(_) => {
+                panic!("Failed to create File!");
+            }
+        };
+    }
+    else{
+        match load_json(){
+            Ok(contents) => {
+                //contents.extend(attributes.clone());
+                match dump_json(&attributes){
+                    Ok(_r) => {
+                        println!("Success => dumped json \n");
+                    },
+                    Err(_) => {
+                        panic!("Failed to dump json!");
+                    }
+                }
+            },
+            Err(_) => {
+                panic!("Failed to load json!");
+            }
         }
+
     }
     let trait_impl = quote! {
         pub fn get_params(&self) -> Vec<Parameter>{
