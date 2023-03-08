@@ -1,3 +1,7 @@
+/*
+ Artificial Smart contract with only Entry Points used for testing.
+*/
+
 #![no_std]
 extern crate alloc;
 use alloc::{vec};

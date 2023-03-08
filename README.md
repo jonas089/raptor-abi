@@ -1,9 +1,30 @@
 # Claptrap
-a casper smart contract metadata extractor.
+This project took inspiration from
+```
 
-## Developer notes
-Metadata (output.json) is an artifact that's generated at build-time.
+██╗███╗░░██╗██╗░░██╗██╗
+██║████╗░██║██║░██╔╝██║
+██║██╔██╗██║█████═╝░██║
+██║██║╚████║██╔═██╗░╚═╝
+██║██║░╚███║██║░╚██╗██╗
+╚═╝╚═╝░░╚══╝╚═╝░░╚═╝╚═╝
+```
+a smart contract ABI generator for Polkadot
 
-Target folder has to be removed before re-generating metadata for the same contract.
+Claptrap is essentially a compact implementation of Ink for Casper smart contracts.
 
-If this is not done, Rust will not recompile the contract from source and therefore not generate Metadata.
+As of today, Claptrap supports metadata generation at build-time for **Entry Point** definitions.
+
+## src/ink.rs
+Artificial example contract that demonstrates the implementation of **Entry Points** using Claptrap macros.
+
+## code_generator
+Procedural macro definitions for contract ABI generation inspired by Ink!.
+
+## helpers
+Deadcode Type definitions and filehandlers.
+
+## test.sh
+Compile ink.rs => output.json
+
+test.sh deletes the target folder (if present) because otherwise the ink contract is not built from source => no or empty output.json.
