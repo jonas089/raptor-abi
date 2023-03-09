@@ -93,6 +93,7 @@ dependencies = [
 name = "caspiler"
 version = "0.0.0"
 dependencies = [
+ "base16",
  "casper-types",
  "code_generator",
  "helpers",

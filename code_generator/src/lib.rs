@@ -84,7 +84,7 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
                     "CasperU64" => Parameter::new(name.clone(), CLType::U64),
                     "CasperKey" => Parameter::new(name.clone(), CLType::Key),
                     "CasperU512" => Parameter::new(name.clone(), CLType::U512),
-                    _ => panic!("Unsupported type: {}", ty),
+                    _ => Parameter::new("error", CLType::String),
                 };
                 params.push(param);
             }
