@@ -1,0 +1,3 @@
+cargo:rerun-if-changed=build/main.rs
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/chef/Desktop/claptrap78/target/wasm32-unknown-unknown/release/build/typenum-f35a6bc04fa7164d/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/Users/chef/Desktop/claptrap78/target/wasm32-unknown-unknown/release/build/typenum-f35a6bc04fa7164d/out/op.rs
