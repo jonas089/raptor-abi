@@ -1,10 +1,9 @@
 /*
  Artificial Smart contract with only Entry Points used for testing.
 */
-
 #![no_std]
 extern crate alloc;
-use alloc::{vec};
+use alloc::{vec, vec::Vec};
 
 use helpers::types::{CasperKey, CasperU64, CasperString};
 use code_generator::{InkCasperMacro};
