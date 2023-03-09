@@ -8,11 +8,12 @@ readme = "README.md"
 license = "Apache-2.0"
 [dependencies]
 helpers = {path='./helpers'}
-code_generator = {path='./code_generator'}
+#code_generator = {path='./code_generator'}
 serde_json="1.0.93"
 
 # Casper smart contract dependencies
 casper-types = "1.4.5"
 serde = { version = "1", features = ["derive", "alloc"], default-features = false }
 base16 = { version = "0.2", default-features = false, features = ["alloc"] }
-casper-serde-json-wasm = { path = "./casper-serde-no-std"}
+#casper-serde-json-wasm = { path = "./casper-serde-no-std"}
+code_generator = { path = './code_generator' }
