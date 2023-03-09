@@ -1,14 +1,10 @@
 //! Serialize a Rust data structure into JSON data
 
-extern crate alloc;
-
-use core::{fmt};
-use alloc::{string::String ,vec::Vec};
-use alloc::string::ToString;
-
+use std::{error, fmt};
 
 use serde::ser;
-use serde_json;
+
+use std::vec::Vec;
 
 use self::seq::SerializeSeq;
 use self::struct_::SerializeStruct;
@@ -41,23 +37,14 @@ impl From<u8> for Error {
         Error::BufferFull
     }
 }
-#[cfg(feature = "std")]
-impl ::std::error::Error for Error {
+
+impl error::Error for Error {
     fn source(&self) -> Option<&(dyn error::Error + 'static)> {
         None
     }
 
     fn description(&self) -> &str {
         "(use display)"
-    }
-}
-
-impl serde::ser::Error for Error {
-    fn custom<T>(msg: T) -> Self
-        where
-            T: fmt::Display,
-    {
-        Error::Custom(msg.to_string())
     }
 }
 
@@ -453,15 +440,6 @@ where
     Ok(unsafe { String::from_utf8_unchecked(ser.buf) })
 }
 
-/// Serializes the given data structure as a string of JSON text
-pub fn to_string_pretty<T>(value: &T) -> Result<String>
-    where
-        T: ser::Serialize + ?Sized,
-{
-    Ok(serde_json::to_string_pretty(value)
-        .map_err(|_| Error::Custom("Failed to pretty print".to_string()))?)
-}
-
 /// Serializes the given data structure as a JSON byte vector
 pub fn to_vec<T>(value: &T) -> Result<Vec<u8>>
 where
@@ -472,7 +450,6 @@ where
     Ok(ser.buf)
 }
 
-#[cfg(feature = "std")]
 impl ser::Error for Error {
     fn custom<T>(msg: T) -> Self
     where

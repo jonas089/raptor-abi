@@ -1,0 +1,38 @@
+[package]
+name = "caspiler"
+version = "0.0.0" # when updating, also update 'html_root_url' in lib.rs
+authors = ["Jonas Pauli <jonaspauli089@gmail.com>"]
+edition = "2021"
+description = "Casper R&D ABIs"
+readme = "README.md"
+license = "Apache-2.0"
+[dependencies]
+helpers = {path='../helpers'}
+
+# Casper smart contract dependencies
+serde = { version = "1", features = ["derive", "alloc"], default-features = false }
+base16 = { version = "0.2", default-features = false, features = ["alloc"] }
+#code_generator = { path = './code_generator'}
+casper-contract = { version = "1.4.4", default-features = false, features = ["test-support"] }
+casper-types = "1.5"
+# Erroring
+#casper-serde-json-wasm = { path = "../casper-serde-json-wasm"}
+serde_json = { version = "^1.0.59", default-features = false, features = [
+  "alloc",
+] }
+serde-json-wasm="0.5.0"
+
+[dependencies.code_generator]
+path = "../code_generator"
+default-features = false
+
+[[bin]]
+name = "contract"
+path = "src/main.rs"
+bench = false
+doctest = false
+test = false
+
+[profile.release]
+codegen-units = 1
+lto = true

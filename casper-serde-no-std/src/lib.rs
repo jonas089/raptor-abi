@@ -51,22 +51,17 @@
 //! This crate is guaranteed to compile on stable Rust 1.31.0 and up. It *might* compile with older
 //! versions but that may change in any new patch release.
 
-#![no_std]
-
 #![deny(missing_docs)]
 #![deny(rust_2018_compatibility)]
 #![deny(rust_2018_idioms)]
-
-extern crate alloc;
 
 pub mod de;
 pub mod ser;
 
 #[doc(inline)]
-pub use self::de::{from_slice, from_str, from_str_to_string_map};
+pub use self::de::{from_slice, from_str};
 #[doc(inline)]
-pub use self::ser::{to_string, to_vec, to_string_pretty};
-pub use serde_json;
+pub use self::ser::{to_string, to_vec};
 
 #[cfg(test)]
 mod test {

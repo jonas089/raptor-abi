@@ -8,17 +8,12 @@ mod unescape;
 
 pub use errors::{Error, Result};
 
-extern crate alloc;
-
 use serde::de::{self, Visitor};
 
 use self::enum_::{StructVariantAccess, UnitVariantAccess};
 use self::map::MapAccess;
 use self::seq::SeqAccess;
-use core::str::from_utf8;
-use alloc::{string::String};
-use alloc::string::ToString;
-use alloc::vec::Vec;
+use std::str::from_utf8;
 
 /// Deserializer will parse serde-json-wasm flavored JSON into a
 /// serde-annotated struct
@@ -581,33 +576,14 @@ impl<'a, 'de> de::Deserializer<'de> for &'a mut Deserializer<'de> {
         self.deserialize_seq(visitor)
     }
 
-    // /// Unsupported. Can’t make an arbitrary-sized map in no-std. Use a struct with a
-    // /// known format, or implement a custom map deserializer / visitor:
-    // /// https://serde.rs/deserialize-map.html
-    // fn deserialize_map<V>(self, _visitor: V) -> Result<V::Value>
-    // where
-    //     V: Visitor<'de>,
-    // {
-    //     unreachable!()
-    // }
-
-    fn deserialize_map<V>(self, visitor: V) -> Result<V::Value>
-        where
-            V: Visitor<'de>,
+    /// Unsupported. Can’t make an arbitrary-sized map in no-std. Use a struct with a
+    /// known format, or implement a custom map deserializer / visitor:
+    /// https://serde.rs/deserialize-map.html
+    fn deserialize_map<V>(self, _visitor: V) -> Result<V::Value>
+    where
+        V: Visitor<'de>,
     {
-        let peek = self.parse_whitespace().ok_or(Error::EofWhileParsingValue)?;
-
-        if peek == b'{' {
-            self.eat_char();
-
-            let ret = visitor.visit_map(MapAccess::new(self))?;
-
-            self.end_map()?;
-
-            Ok(ret)
-        } else {
-            Err(Error::InvalidType)
-        }
+        unreachable!()
     }
 
     fn deserialize_struct<V>(
@@ -708,13 +684,6 @@ where
 {
     from_slice(s.as_bytes())
 }
-
-/// Deserializes an instance of type map of string to string from a string of JSON text
-pub fn from_str_to_string_map(s: &str) -> Result<Vec<(String, String)>> {
-    serde_json::from_str::<Vec<(String, String)>>(s)
-        .map_err(|_| Error::Custom("Failed to parse string to string map".to_string()))
-}
-
 
 #[cfg(test)]
 mod tests {
