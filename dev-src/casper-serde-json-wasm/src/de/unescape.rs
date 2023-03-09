@@ -1,4 +1,8 @@
-use std::convert::TryFrom;
+extern crate alloc;
+
+use core::convert::TryFrom;
+use alloc::{string::String, vec::Vec};
+
 
 use super::errors::{Error, Result};
 

@@ -1,5 +1,8 @@
+extern crate alloc;
+
 use serde::de;
-use std::{error, fmt};
+use core::{fmt};
+use alloc::string::{String, ToString};
 
 /// Deserialization result
 pub type Result<T> = core::result::Result<T, Error>;
@@ -72,7 +75,8 @@ pub enum Error {
     Custom(String),
 }
 
-impl error::Error for Error {
+#[cfg(feature = "std")]
+impl ::std::error::Error for Error {
     fn source(&self) -> Option<&(dyn error::Error + 'static)> {
         None
     }
