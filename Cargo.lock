@@ -64,6 +64,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "14c189c53d098945499cdfa7ecc63567cf3886b3332b312a5b4585d8d3a6a610"
 
 [[package]]
+name = "casper-contract"
+version = "1.4.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "790b76807d64788758208757b0a17970bf756cb7c392f55b1a22021a34f95991"
+dependencies = [
+ "casper-types",
+ "hex_fmt",
+]
+
+[[package]]
+name = "casper-serde-json-wasm"
+version = "0.4.1"
+dependencies = [
+ "serde",
+]
+
+[[package]]
 name = "casper-types"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -94,6 +111,8 @@ name = "caspiler"
 version = "0.0.0"
 dependencies = [
  "base16",
+ "casper-contract",
+ "casper-serde-json-wasm",
  "casper-types",
  "code_generator",
  "helpers",

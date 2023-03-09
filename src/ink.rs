@@ -41,13 +41,5 @@ pub fn ink_casper_contract() -> u64{
     let entry_point = EntryPoint::new("test", result.clone(), CLType::Unit, EntryPointAccess::Public, EntryPointType::Contract);
     eps.add_entry_point(entry_point);
 
-    for _ep in result.iter(){
-        match _ep{
-            _p => {
-
-            },
-            _ => {panic!("Invalid type!")}
-        }
-    }
     99 as u64
 }

@@ -5,7 +5,6 @@ use quote::{quote, ToTokens};
 extern crate serde_json;
 use helpers::meta::{dump_json, load_json, create_json_file, file_exists};
 
-// proc macro for Entry Point ABI generation.
 #[proc_macro_derive(InkCasperMacro)]
 pub fn ink_derive(input: TokenStream) -> TokenStream {
     // Parse deadcode struct as TokenStream
@@ -35,6 +34,7 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
         types.push(attribute[1].clone());
     }
     // dump metadata at build time
+    
     if file_exists("output.json") == false{
         match create_json_file("output.json"){
             Ok(_file) => {
