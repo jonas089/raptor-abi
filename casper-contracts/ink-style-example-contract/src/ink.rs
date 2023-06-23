@@ -4,7 +4,7 @@
 extern crate alloc;
 use alloc::{vec, vec::Vec};
 
-use helpers::types::{CasperKey, CasperU64, CasperString};
+use helpers::types::{CasperKey, CasperU64, CasperU256, CasperU512, CasperString};
 use code_generator::{InkCasperMacro};
 use casper_types::{
     CLType, EntryPoint, EntryPointAccess, EntryPointType, EntryPoints, Parameter
@@ -18,7 +18,7 @@ pub fn ink_casper_contract() -> u64{
         sender:CasperString,
         recipient:CasperString,
         amount:CasperU64,
-        id_first:CasperU64,
+        id_first:CasperU256,
         key:CasperKey
     }
 

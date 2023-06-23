@@ -1,5 +1,12 @@
 # Claptrap
 This project took inspiration from
+
+## Supported types (easily expandable)
+- CasperKey => CLType::Key
+- CasperString => CLType::String
+- CasperU512 => CLType::U512
+- CasperU256 => CLType::U256
+- CasperU64 => CLType::U64
 ```
 
 ██╗███╗░░██╗██╗░░██╗██╗

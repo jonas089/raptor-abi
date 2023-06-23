@@ -34,7 +34,7 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
         types.push(attribute[1].clone());
     }
     // dump metadata at build time
-    
+
     if file_exists("output.json") == false{
         match create_json_file("output.json"){
             Ok(_file) => {
@@ -81,8 +81,9 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
             for (name, ty) in names.iter().zip(types.iter()).skip(1) {
                 let param = match *ty {
                     "CasperString" => Parameter::new(name.clone(), CLType::String),
-                    "CasperU64" => Parameter::new(name.clone(), CLType::U64),
                     "CasperKey" => Parameter::new(name.clone(), CLType::Key),
+                    "CasperU64" => Parameter::new(name.clone(), CLType::U64),
+                    "CasperU256" => Parameter::new(name.clone(), CLType::U256),
                     "CasperU512" => Parameter::new(name.clone(), CLType::U512),
                     _ => Parameter::new("error", CLType::String),
                 };
