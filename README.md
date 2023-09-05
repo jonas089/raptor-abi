@@ -57,3 +57,4 @@ let ep_parameters = ep.get_params();
 let entry_point = EntryPoint::new("test", ep_parameters.clone(), CLType::Unit, EntryPointAccess::Public, EntryPointType::Contract);
 ```
 The additional syntax is required as Claptrap parses the struct at compile time using a proc macro to generate valuable metadata for the contract.
+
