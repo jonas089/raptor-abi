@@ -35,7 +35,7 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
         types.push(attribute[1].clone());
     }
 
-    let env_path_to_output: PathBuf = PathBuf::from(env::var("OUTPUT_PATH").expect("Missing required environment variable: OUTPUT_PATH!"));
+    let env_path_to_output: PathBuf = PathBuf::from(env::var("OUTPUT_PATH").expect("Missing required environment variable: OUTPUT_PATH"));
 
     let writer: MetaWriter = MetaWriter{
         env_path_to_output: env_path_to_output
@@ -44,8 +44,7 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
     if !writer.file_exists(){
         match writer.create_json_file(){
             Ok(_file) => {
-
-                match writer.dump_json(&attributes){
+                match writer.dump_json(&vec![attributes]){
                     Ok(_r) => {
 
                     },
@@ -61,9 +60,10 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
     }
     else{
         match writer.load_json(){
-            Ok(_contents) => {
+            Ok(mut _contents) => {
+                _contents.push(attributes);
                 //contents.extend(attributes.clone());
-                match writer.dump_json(&attributes){
+                match writer.dump_json(&_contents){
                     Ok(_r) => {
 
                     },

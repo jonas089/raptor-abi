@@ -8,21 +8,21 @@ pub struct MetaWriter{
 }
 
 impl MetaWriter{
-    pub fn dump_json(&self, data: &Vec<Vec<String>>) -> std::io::Result<()> {
+    pub fn dump_json(&self, data: &Vec<Vec<Vec<String>>>) -> std::io::Result<()> {
         let json_data = serde_json::to_string(data)?;
         let mut file = OpenOptions::new()
             .write(true)
-            .append(true)
+            .truncate(true)
             .open(self.env_path_to_output.clone())?;
         let res = file.write_all(json_data.as_bytes())?;
         Ok(res)
     }
     
-    pub fn load_json(&self) -> std::io::Result<Vec<Vec<String>>> {
-        let mut file = File::open(self.env_path_to_output.clone())?;
+    pub fn load_json(&self) -> std::io::Result<Vec<Vec<Vec<String>>>> {
+        let mut file = File::open(self.env_path_to_output.clone()).unwrap();
         let mut contents = String::new();
-        file.read_to_string(&mut contents)?;
-        let data: Vec<Vec<String>> = serde_json::from_str(&contents)?;
+        file.read_to_string(&mut contents).unwrap();
+        let data: Vec<Vec<Vec<String>>> = serde_json::from_str(&contents).unwrap();
         Ok(data)
     }
     
