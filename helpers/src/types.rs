@@ -1,26 +1,16 @@
 #![allow(dead_code)]
 
 #[derive(Default)]
-pub struct CasperKey{
-    id:u64
-}
+pub struct CasperKey{}
 
 #[derive(Default)]
-pub struct CasperString{
-    id:u64
-}
+pub struct CasperString{}
 
 #[derive(Default)]
-pub struct CasperU256{
-    id:u64
-}
+pub struct CasperU256{}
 
 #[derive(Default)]
-pub struct CasperU512{
-    id:u64
-}
+pub struct CasperU512{}
 
 #[derive(Default)]
-pub struct CasperU64{
-    id:u64
-}
+pub struct CasperU64{}

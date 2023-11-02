@@ -1,1 +1,1 @@
-cd RUN && ./ink-style-build.sh && ./cep78-with-macro-entry-point.sh
+export OUTPUT_PATH=/Users/chef/Desktop/rust-contract-abi/output.json && cd scripts && ./ink-style-build.sh

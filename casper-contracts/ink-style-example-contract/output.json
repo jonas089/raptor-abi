@@ -1,1 +1,0 @@
-[["Name","NewEntryPointArgs1"],["sender","CasperString"],["recipient","CasperString"],["amount","CasperU64"],["id_first","CasperU256"],["key","CasperKey"]][["Name","NewEntryPointArgs2"],["sender","CasperString"],["recipient","CasperString"],["amount","CasperU64"],["id_first","CasperU64"],["key","CasperKey"]]

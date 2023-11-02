@@ -25,11 +25,11 @@ pub fn ink_casper_contract() -> u64{
     #[derive(Default)]
     #[derive(InkCasperMacro)]
     struct NewEntryPointArgs2{
-        sender:CasperString,
-        recipient:CasperString,
-        amount:CasperU64,
-        id_first:CasperU64,
-        key:CasperKey
+        sender: CasperString,
+        recipient: CasperString,
+        amount: CasperU64,
+        id_first: CasperU64,
+        key: CasperKey
     }
 
     let ep = NewEntryPointArgs1::default();
