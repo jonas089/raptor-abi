@@ -1,1 +1,3 @@
 casper-contracts/ink-style-example-contract/target/
+code-generator/target/
+helpers/target/
