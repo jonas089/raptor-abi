@@ -1,13 +1,12 @@
-#![allow(dead_code)]
-#![allow(unreachable_patterns)]
+//#![allow(dead_code)]
+//#![allow(unreachable_patterns)]
 #![no_std]
 #![no_main]
 
 extern crate alloc;
 use alloc::{vec, vec::Vec};
-
-use helpers::types::{CasperKey, CasperU64, CasperU256, CasperU512, CasperString};
-use code_generator::{InkCasperMacro};
+use helpers::types::{String, U64, U256, U512, Key};
+use casper_macros::{InkCasperMacro};
 use casper_types::{
     CLType, EntryPoint, EntryPointAccess, EntryPointType, EntryPoints, Parameter
 };
@@ -17,21 +16,21 @@ pub fn init(){
     #[derive(Default)]
     #[derive(InkCasperMacro)]
     struct NewEntryPointArgs1{
-        sender:CasperString,
-        recipient:CasperString,
-        amount:CasperU64,
-        id_first:CasperU256,
-        key:CasperKey
+        sender: Key,
+        recipient: Key,
+        amount: U64,
+        id_first:U256,
+        text: String
     }
 
     #[derive(Default)]
     #[derive(InkCasperMacro)]
     struct NewEntryPointArgs2{
-        sender: CasperString,
-        recipient: CasperString,
-        amount: CasperU64,
-        id_first: CasperU64,
-        key: CasperKey
+        sender: Key,
+        recipient: Key,
+        amount: U64,
+        id_first: U256,
+        text: String
     }
 
     let ep = NewEntryPointArgs1::default();

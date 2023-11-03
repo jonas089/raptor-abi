@@ -8,7 +8,7 @@ readme = "README.md"
 license = "Apache-2.0"
 [dependencies]
 helpers = {path='../../helpers'}
-#code_generator = {path='./code-generator'}
+casper-macros = { path='../../casper-macros', default-features=false }
 serde_json="1.0.93"
 
 # Casper smart contract dependencies
@@ -17,9 +17,3 @@ base16 = { version = "0.2", default-features = false, features = ["alloc"] }
 casper-contract = { version = "3.0.0", default-features = false, features = ["test-support"] }
 casper-types = "3.0.0"
 
-# This was causing breaking errors
-# The Cep78 team now uses a different serde-wasm module that
-# doesn't cause errors when using std.
-# casper-serde-json-wasm = { path = "./casper-serde-json-wasm"}
-
-code-generator = { path='../../code-generator', default-features=false }

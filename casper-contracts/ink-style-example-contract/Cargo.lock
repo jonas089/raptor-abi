@@ -74,6 +74,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "casper-macros"
+version = "0.1.0"
+dependencies = [
+ "casper-types",
+ "helpers",
+ "libloading",
+ "proc-macro2",
+ "quote",
+ "serde_json",
+ "syn",
+]
+
+[[package]]
 name = "casper-types"
 version = "3.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -105,8 +118,8 @@ version = "0.0.0"
 dependencies = [
  "base16",
  "casper-contract",
+ "casper-macros",
  "casper-types",
- "code-generator",
  "helpers",
  "serde",
  "serde_json",
@@ -117,19 +130,6 @@ name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
-
-[[package]]
-name = "code-generator"
-version = "0.1.0"
-dependencies = [
- "casper-types",
- "helpers",
- "libloading",
- "proc-macro2",
- "quote",
- "serde_json",
- "syn",
-]
 
 [[package]]
 name = "cpufeatures"
