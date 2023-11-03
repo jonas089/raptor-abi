@@ -1,4 +1,4 @@
-use std::{vec::Vec, path::PathBuf, fmt::write};
+use std::{vec::Vec, path::PathBuf, fmt::{write, format}, f32::consts::E};
 use syn::{parse_macro_input, DeriveInput, Data};
 use proc_macro::{TokenStream};
 use quote::{quote, ToTokens};
@@ -15,7 +15,7 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
             data_struct
         },
         _ => {
-            panic!("Input is not of type struct!");
+            panic!("Macro misuse - Input not of type 'Struct'!");
         }
     };
     let fields = &data.fields;
@@ -42,40 +42,13 @@ pub fn ink_derive(input: TokenStream) -> TokenStream {
     };
     // dump metadata at build time
     if !writer.file_exists(){
-        match writer.create_json_file(){
-            Ok(_file) => {
-                match writer.dump_json(&vec![attributes]){
-                    Ok(_r) => {
-
-                    },
-                    Err(_) => {
-                        panic!("Failed to dump json!");
-                    }
-                }
-            },
-            Err(error) => {
-                panic!("Failed to create File!: {:?}", error);
-            }
-        };
+        writer.create_json_file().map_err(|e| format!("Failed to create file: {:?}", e));
+        writer.dump_json(&vec![attributes]).map_err(|e| format!("Failed to dump json: {:?}", e));
     }
     else{
-        match writer.load_json(){
-            Ok(mut _contents) => {
-                _contents.push(attributes);
-                //contents.extend(attributes.clone());
-                match writer.dump_json(&_contents){
-                    Ok(_r) => {
-
-                    },
-                    Err(_) => {
-                        panic!("Failed to dump json!");
-                    }
-                }
-            },
-            Err(error) => {
-                panic!("Failed to load json!: {:?}", error);
-            }
-        }
+        let mut metadata = writer.load_json().map_err(|e| format!("Failed to load json: {:?}", e)).unwrap();
+        metadata.push(attributes);
+        writer.dump_json(&metadata).map_err(|e| format!("Failed to dump json: {:?}", e));
     }
     // add a trait to the deadcode struct that returns native Parameters for EPs
     let trait_impl = quote! {
