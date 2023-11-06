@@ -1,12 +1,24 @@
 # Claptrap
 This project took inspiration from
 
-## Supported types (easily expandable)
-- CasperKey => CLType::Key
-- CasperString => CLType::String
-- CasperU512 => CLType::U512
-- CasperU256 => CLType::U256
-- CasperU64 => CLType::U64
+## Supported casper_types
+- Bool
+- I32
+- I64
+- U8
+- U32
+- U64
+- U128
+- U256
+- U512
+- Unit
+- String
+- Key
+- URef
+- PublicKey
+
+- Any
+
 ```
 
 ██╗███╗░░██╗██╗░░██╗██╗
@@ -46,11 +58,11 @@ Claptrap:
 #[derive(Default)]
 #[derive(InkCasperMacro)]
 struct NewEntryPointArgs1{
-    sender:CasperString,
-    recipient:CasperString,
-    amount:CasperU64,
-    id_first:CasperU64,
-    key:CasperKey
+    sender: Key,
+    recipient: Key,
+    amount: U64,
+    id_first:U256,
+    text: String
 }
 let ep = NewEntryPointArgs1::default();
 let ep_parameters = ep.get_params();
