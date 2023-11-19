@@ -9,11 +9,11 @@ license = "Apache-2.0"
 [dependencies]
 helpers = {path='../../helpers'}
 casper-macros = { path='../../casper-macros', default-features=false }
-serde_json="1.0.93"
+serde_json="1.0.108"
 
 # Casper smart contract dependencies
-serde = { version = "1", features = ["derive", "alloc"], default-features = false }
-base16 = { version = "0.2", default-features = false, features = ["alloc"] }
+serde = { version = "1.0.192", features = ["derive", "alloc"], default-features = false }
+base16 = { version = "0.2.1", default-features = false, features = ["alloc"] }
 casper-contract = { version = "3.0.0", default-features = false, features = ["test-support"] }
-casper-types = "3.0.0"
+casper-types = "4.0.0"
 
