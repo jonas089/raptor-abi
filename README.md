@@ -1,6 +1,3 @@
-# Claptrap
-This project took inspiration from
-
 ## Supported casper_types
 - Bool
 - I32
