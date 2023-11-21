@@ -1,3 +1,5 @@
+# Raptor contract ABI
+
 <img src="https://github.com/jonas089/raptor-abi/blob/master/resources/logo.webp" alt="Alt text" title="Logo" width="500" height="500"/>
 
 ## Supported casper_types
@@ -29,7 +31,7 @@
 ```
 a smart contract ABI generator for Polkadot
 
-Claptrap is essentially a compact implementation of Ink for Casper smart contracts.
+Raptor-abi is essentially a compact implementation of Ink for Casper smart contracts.
 
 As of today, Claptrap supports metadata generation at build-time for **Entry Point** definitions.
 
@@ -52,7 +54,7 @@ Native Casper:
 ```rust
 EntryPoint::new("test", vec![...], CLType::Unit, EntryPointAccess::Public, EntryPointType::Contract);
 ```
-Claptrap:
+Raptor:
 ```rust
 #[derive(Default)]
 #[derive(InkCasperMacro)]
