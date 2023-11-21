@@ -1,3 +1,5 @@
+<img src="https://github.com/jonas089/raptor-abi/blob/master/resources/logo.webp" alt="Alt text" title="Logo" width="500" height="500"/>
+
 ## Supported casper_types
 - Bool
 - I32
